@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="ex3.js"></script>
+<script>
+    $(document).ready(() => {
+        let clocks = []
+        $('#submit').on('click', (event) => {
+            event.preventDefault();
+            const hours = $('#hours')
+            const minutes = $('#minutes')
+            const seconds = $('#seconds')
+            const country = $('#country')
+            let clock = new Clock(Number(hours.val()), Number(minutes.val()), Number(seconds.val()), country.val())
+            hours.val('');
+            minutes.val('');
+            seconds.val('');
+            country.val('');
+            clocks.push(clock)
+            if (clocks.length === 5) {
+                clocks.forEach((clock) => {
+                    let time = clock.Show()
+                    let convertToSeconds = clock.ConvertToSeconds()
+                    let p = $('<p>')
+                    p.html(time)
+                    p.append(convertToSeconds)
+                    p.append(" seconds")
+                    $('body').append(p)
+                })
+            }
+        })
+    });
+</script>
+
+<body>
+    <form id="form">
+        <input type="text" id="hours" placeholder="hours">
+        <input type="text" id="minutes" placeholder="minutes">
+        <input type="text" id="seconds" placeholder="seconds">
+        <input type="text" id="country" placeholder="country">
+        <button type="submit" id="submit">create clock</button>
+    </form>
+</body>
+
+</html>
